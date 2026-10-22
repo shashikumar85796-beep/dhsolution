@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kaveri Finserv – Loans matched to the right lender</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#0b1437;--bg2:#13214f;--ink:#f1f5ff;--mute:#a9b7dc;--line:rgba(255,255,255,.13);--card:rgba(255,255,255,.06);
+--violet:#8b5cf6;--pink:#3b82f6;--amber:#ffb53d;--mint:#22d3ee;--grad:linear-gradient(120deg,#3b82f6,#8b5cf6 55%,#22d3ee);
+--head:'Bricolage Grotesque','Trebuchet MS',system-ui,sans-serif;--body:'Instrument Sans',system-ui,-apple-system,'Segoe UI',sans-serif;color-scheme:dark}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark}}
+@media(prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f3f7ff;--bg2:#e4ecfb;--ink:#0b1437;--mute:#51618a;--line:rgba(11,20,55,.14);--card:rgba(255,255,255,.7);color-scheme:light}}
+:root[data-theme="light"]{--bg:#f3f7ff;--bg2:#e4ecfb;--ink:#0b1437;--mute:#51618a;--line:rgba(11,20,55,.14);--card:rgba(255,255,255,.7);color-scheme:light}
+:root[data-theme="dark"]{--bg:#0b1437;--bg2:#13214f;--ink:#f1f5ff;--mute:#a9b7dc;--line:rgba(255,255,255,.12);--card:rgba(255,255,255,.06);color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--body);overflow-x:hidden}
+h1,h2,h3{font-family:var(--head);line-height:1.05;letter-spacing:-.02em}a{color:inherit}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:8px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+.glow{position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(600px 420px at 12% 8%,rgba(59,130,246,.42),transparent 70%),radial-gradient(520px 420px at 90% 20%,rgba(139,92,246,.28),transparent 70%),radial-gradient(600px 500px at 60% 95%,rgba(34,211,238,.16),transparent 70%)}
+nav.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;backdrop-filter:blur(14px);background:color-mix(in srgb,var(--bg) 72%,transparent);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:12px;height:66px}
+.logo{font:800 22px var(--head);text-decoration:none;display:flex;align-items:center;gap:9px}
+.logo i{width:28px;height:28px;border-radius:9px 9px 9px 2px;background:var(--grad)}
+.links{margin-left:auto;display:flex;gap:20px;font-weight:500;font-size:15px}
+.links a{text-decoration:none;color:var(--mute)}.links a:hover,.links a.on{color:var(--ink)}
+.dd{position:relative}.menu{position:absolute;top:100%;left:-12px;min-width:240px;padding:10px;border-radius:18px;background:var(--bg2);border:1px solid var(--line);display:none;box-shadow:0 30px 60px -20px rgba(0,0,0,.5)}
+.dd:hover .menu,.dd:focus-within .menu{display:grid}.menu a{padding:9px 12px;border-radius:10px;display:flex;gap:10px}.menu a:hover{background:var(--card)}
+.btn{display:inline-block;border:0;cursor:pointer;font:600 16px var(--body);padding:13px 24px;border-radius:999px;background:var(--grad);color:#fff;text-decoration:none;box-shadow:0 10px 30px -10px rgba(59,130,246,.7);transition:transform .2s}
+.btn:hover{transform:translateY(-2px)}.btn.sm{padding:9px 18px;font-size:15px}.btn.ghost{background:transparent;border:1px solid var(--line);box-shadow:none;color:var(--ink)}
+.tbtn{background:none;border:1px solid var(--line);color:var(--ink);border-radius:50%;width:38px;height:38px;cursor:pointer;font-size:16px}.burger{display:none}
+@media(max-width:980px){.burger{display:block}.links{display:none;position:absolute;top:66px;left:0;right:0;flex-direction:column;gap:0;padding:10px 22px 18px;background:var(--bg2);border-bottom:1px solid var(--line)}.links.open{display:flex}.links>*{padding:10px 0}.dd .menu{display:none!important}}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center;padding:60px 22px 76px}@media(max-width:900px){.hero{grid-template-columns:1fr;padding-top:34px}}
+.pill{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--line);background:var(--card);padding:7px 14px;border-radius:999px;font-size:14px;color:var(--mute)}
+.pill b{width:8px;height:8px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 4px rgba(34,211,238,.25)}
+h1{font-size:clamp(38px,6vw,78px);font-weight:800;margin:18px 0}.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--mute);font-size:19px;max-width:34em}.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.facts{display:flex;gap:30px;margin-top:30px;flex-wrap:wrap}.facts div{font-size:14px;color:var(--mute)}.facts strong{display:block;font:800 30px var(--head);color:var(--ink)}
+.crumb{font-size:14px;color:var(--mute);padding-top:26px}.crumb a{text-decoration:none}.crumb a:hover{color:var(--ink)}
+.calc{background:linear-gradient(160deg,var(--card),transparent),var(--bg2);border:1px solid var(--line);border-radius:28px;padding:28px;box-shadow:0 40px 90px -40px rgba(139,92,246,.7);align-self:start}
+.calc h3{font-size:22px;margin-bottom:14px}.row{margin-bottom:16px}.row label{display:flex;justify-content:space-between;font-size:14px;color:var(--mute);margin-bottom:8px}.row output{color:var(--ink);font-weight:600}
+input[type=range]{width:100%;accent-color:var(--pink)}
+.res{display:flex;align-items:center;gap:20px;margin:6px 0 14px}.res svg{width:108px;height:108px;flex:none;transform:rotate(-90deg)}.res circle+circle{transition:stroke-dasharray .4s}
+.emi{font:800 clamp(30px,4vw,42px) var(--head)}small,.note{color:var(--mute);font-size:13px}
+.split div{display:flex;justify-content:space-between;font-size:15px;border-top:1px solid var(--line);padding:8px 0 0;margin-top:8px}.split span{color:var(--mute)}.split b{font-weight:600}
+.cmp{width:100%;border-collapse:collapse;margin-top:16px;font-size:15px}.cmp th,.cmp td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left}.cmp .hl{color:var(--amber);font-weight:600}
+input[type=text],input:not([type]),select{width:100%;padding:14px 16px;margin-bottom:10px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:400 16px var(--body)}
+section{padding:70px 0}.sh{max-width:660px;margin-bottom:36px}.sh h2{font-size:clamp(30px,4.4vw,50px);font-weight:800}.sh p{color:var(--mute);margin-top:12px}
+.marq{border-block:1px solid var(--line);overflow:hidden;padding:18px 0;background:var(--card)}
+.track{display:flex;gap:46px;width:max-content;animation:slide 38s linear infinite;font:700 20px var(--head);color:var(--mute);white-space:nowrap}@keyframes slide{to{transform:translateX(-50%)}}
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}.grid>*{grid-column:span 2}.grid>.big{grid-column:span 3}
+@media(max-width:900px){.grid>*,.grid>.big{grid-column:span 6}}
+.card{position:relative;display:block;text-decoration:none;border:1px solid var(--line);background:var(--card);border-radius:24px;padding:26px;min-height:200px;transition:transform .25s,border-color .25s}
+a.card:hover{transform:translateY(-4px);border-color:var(--pink)}.card h3{font-size:23px;margin-bottom:8px}.card p{color:var(--mute);font-size:15px}.card em{display:block;margin-top:12px;font-style:normal;font-weight:600;font-size:14px;color:var(--amber)}
+.ic{font-size:28px;width:52px;height:52px;border-radius:16px;display:grid;place-items:center;margin-bottom:16px;background:var(--g,var(--grad))}.ic.lg{width:72px;height:72px;font-size:38px;border-radius:22px}
+.rate{position:absolute;right:20px;top:20px;font-size:13px;font-weight:600;padding:5px 11px;border-radius:999px;border:1px solid var(--line)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;counter-reset:s}@media(max-width:860px){.steps{grid-template-columns:1fr}}
+.step::before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--grad);font:800 19px var(--head);color:#fff;margin-bottom:14px;box-shadow:0 0 0 8px rgba(59,130,246,.18)}
+.step h3{font-size:20px;margin-bottom:6px}.step p{color:var(--mute);font-size:15px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}@media(max-width:860px){.two{grid-template-columns:1fr}}
+.stat{border-radius:28px;padding:34px;background:var(--grad);color:#fff}.stat strong{font:800 clamp(48px,8vw,84px) var(--head);line-height:1;display:block}.stat.alt{background:var(--bg2);border:1px solid var(--line);color:var(--ink)}.stat h2{font-size:30px;margin-bottom:16px}
+.list{list-style:none;padding:0;display:grid;gap:12px}.list li{display:flex;gap:12px;color:var(--mute)}.list li::before{content:"✓";color:var(--mint);font-weight:800}.list b{color:var(--ink)}
+.h3{font-size:26px;margin:0 0 14px}.mt{margin-top:32px}
+details{border-bottom:1px solid var(--line);padding:18px 0}summary{cursor:pointer;font:700 19px var(--head);list-style:none;display:flex;justify-content:space-between;gap:20px}
+summary::after{content:"+";color:var(--pink);font-size:26px;line-height:1;transition:transform .25s}details[open] summary::after{transform:rotate(45deg)}details p{color:var(--mute);margin-top:10px;max-width:46em}
+.ph{padding-top:30px}.ph h1{font-size:clamp(36px,5.4vw,64px);max-width:16em}
+.band{border-radius:32px;padding:42px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;background:linear-gradient(135deg,rgba(59,130,246,.35),rgba(139,92,246,.25) 60%,rgba(34,211,238,.2)),var(--bg2);border:1px solid var(--line)}
+.band h2{font-size:clamp(26px,3.8vw,42px);font-weight:800;max-width:14em}.band .cta{margin:0}
+.info p{margin-bottom:12px;color:var(--mute)}.info b{color:var(--ink)}
+footer{padding:46px 0;border-top:1px solid var(--line);color:var(--mute);font-size:14px;margin-top:30px}.fg{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:30px}@media(max-width:860px){.fg{grid-template-columns:1fr 1fr}}
+.fg>div{display:grid;gap:8px;align-content:start}.fg h4{color:var(--ink);font:700 16px var(--head)}.fg a{text-decoration:none}.fg a:hover{color:var(--ink)}
+.banks{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}@media(max-width:980px){.banks{grid-template-columns:repeat(2,1fr)}}
+.bank{display:flex;gap:12px;align-items:center;padding:16px;border:1px solid var(--line);border-radius:18px;background:var(--card);transition:transform .25s,border-color .25s}.bank:hover{transform:translateY(-3px);border-color:var(--violet)}
+.bm{width:46px;height:46px;flex:none;border-radius:13px;background:var(--grad);display:grid;place-items:center;font:800 13px var(--head);color:#fff}
+.bank b{display:block;font-size:15px;line-height:1.25}.bank small{color:var(--mint)}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.chips span{font-size:14px;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--mute)}
+.rsum{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:26px;padding:20px 24px;border:1px solid var(--line);border-radius:22px;background:var(--card)}
+.rsum strong{font:800 56px/1 var(--head)}.rsum .stars{font-size:22px}.rsum .g{margin-left:auto}
+.stars{color:#fbbc04;letter-spacing:2px}
+.rev{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:16px;-webkit-overflow-scrolling:touch}
+.rc{flex:0 0 min(350px,86%);scroll-snap-align:start;border:1px solid var(--line);background:var(--card);border-radius:20px;padding:22px}
+.rh{display:flex;gap:12px;align-items:center;margin-bottom:12px}.rh small{display:block;line-height:1.3}
+.av{width:44px;height:44px;flex:none;border-radius:50%;display:grid;place-items:center;font:700 19px var(--head);color:#fff}
+.gl{margin-left:auto;font:800 22px Arial,sans-serif;background:conic-gradient(from -45deg,#ea4335 0 25%,#4285f4 0 50%,#34a853 0 75%,#fbbc04 0);-webkit-background-clip:text;background-clip:text;color:transparent}
+.rc p{color:var(--mute);font-size:15.5px;margin-top:8px}.rc .tag{display:inline-block;margin-top:14px;font-size:13px;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--ink)}
+.enq{padding:40px 0 10px}.enq[hidden]{display:none}
+.enq .band{display:grid;grid-template-columns:.9fr 1.1fr;gap:38px;align-items:start}@media(max-width:860px){.enq .band{grid-template-columns:1fr;padding:26px}}
+.enq form{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}.enq .full{grid-column:1/-1}@media(max-width:560px){.enq form{grid-template-columns:1fr}}
+.enq input:not([type=checkbox]),.enq select,.enq textarea{width:100%;padding:14px 16px;margin-bottom:12px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:400 16px var(--body)}
+.enq textarea{resize:vertical}.enq .chk{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--mute);margin-bottom:14px}.enq .chk input{margin-top:4px;accent-color:var(--pink)}
+.enq .note.err{color:#ff6b81}.enq .note.ok{color:var(--mint)}
+.wa{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:40;width:60px;height:60px;border-radius:50%;background:#25d366;display:grid;place-items:center;text-decoration:none;box-shadow:0 12px 30px -8px rgba(37,211,102,.75);transition:transform .2s}
+.wa:hover{transform:scale(1.08)}.wa::before{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #25d366;animation:ring 2.4s ease-out infinite}
+@keyframes ring{0%{transform:scale(1);opacity:.8}100%{transform:scale(1.7);opacity:0}}
+.wa span{position:absolute;right:72px;white-space:nowrap;padding:8px 14px;border-radius:999px;background:var(--bg2);color:var(--ink);border:1px solid var(--line);font:600 14px var(--body);opacity:0;transform:translateX(8px);pointer-events:none;transition:.2s}
+.wa:hover span,.wa:focus-visible span{opacity:1;transform:none}@media(max-width:700px){.wa span{display:none}.wa{width:56px;height:56px;right:14px}}
+.cw{grid-template-columns:1.45fr .8fr}@media(max-width:860px){.cw{grid-template-columns:1fr}}
+.cform{padding:30px}.cform fieldset{border:0;padding:0;margin:0 0 26px;min-width:0}.cform legend{font:700 21px var(--head);margin-bottom:14px;padding:0}
+.fgrid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:560px){.fgrid2{grid-template-columns:1fr}}
+.fld{display:grid;gap:6px;align-content:start}.fld.full{grid-column:1/-1}.fld>label,.fld>.l{font-size:14px;font-weight:600}
+.cform input:not([type=checkbox]):not([type=radio]),.cform select,.cform textarea{width:100%;padding:13px 15px;margin:0;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:400 16px var(--body)}
+.cform [aria-invalid=true]{border-color:#ff6b81!important}.errm{color:#ff6b81;font-size:13px}.errm:empty{display:none}
+.opts{display:flex;gap:8px;flex-wrap:wrap}.opts label{cursor:pointer;position:relative}.opts input{position:absolute;opacity:0;pointer-events:none}
+.opts span{display:inline-block;padding:10px 16px;border-radius:999px;border:1px solid var(--line);background:var(--bg);font-size:15px;transition:.15s}.opts input:checked+span{background:var(--grad);color:#fff;border-color:transparent}.opts input:focus-visible+span{outline:3px solid var(--amber);outline-offset:2px}
+.chk2{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--mute)}.chk2 input{margin-top:4px;accent-color:var(--pink)}
+.acts{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.nx{list-style:none;padding:0;display:grid;gap:14px;counter-reset:n}.nx li{display:flex;gap:12px;color:var(--mute)}.nx li::before{counter-increment:n;content:counter(n);flex:none;width:28px;height:28px;border-radius:50%;background:var(--grad);color:#fff;font:700 14px var(--head);display:grid;place-items:center}
+.badge{display:inline-flex;gap:8px;align-items:center;padding:6px 12px;border-radius:999px;border:1px solid var(--line);font-size:13px;color:var(--ink)}.badge i{width:8px;height:8px;border-radius:50%;background:#9aa4c4}.badge.open i{background:var(--mint);box-shadow:0 0 0 4px rgba(34,211,238,.25)}
+.done{text-align:center;padding:14px 0}.done h3{font-size:30px;margin:14px 0 8px}.done .list{text-align:left;max-width:440px;margin:20px auto}.done .acts{justify-content:center}
+@media(prefers-reduced-motion:reduce){.track,.wa::before{animation:none}}
+</style>
+</head>
+<body>
+<div class="glow"></div>
+<nav class="top"><div class="wrap bar">
+  <a class="logo" href="#home"><i></i>Kaveri Finserv</a>
+  <div class="links" id="links">
+    <a href="#home" data-p="home">Home</a><a href="#about" data-p="about">About</a>
+    <div class="dd"><a href="#home-loan" data-p="svc">Loans</a><div class="menu" id="menu"></div></div>
+    <a href="#emi-calculator" data-p="emi-calculator">EMI calculator</a><a href="#documents" data-p="documents">Documents</a><a href="#faq" data-p="faq">FAQ</a>
+  </div>
+  <button class="tbtn" id="theme" aria-label="Toggle theme">◐</button>
+  <a class="btn sm" href="#contact">Apply now</a>
+  <button class="tbtn burger" id="burger" aria-label="Menu">☰</button>
+</div></nav>
+<main id="app"></main>
+<section class="enq" id="enq"><div class="wrap"><div class="band">
+  <div><h2>Get a call back within an hour</h2><p class="lead" style="margin:14px 0 22px">Tell us about the loan you need. A relationship manager will call you, compare lenders and share the best options. It costs you nothing.</p>
+    <ul class="list"><li><span><b>Free consultation.</b> No fee, ever.</span></li><li><span><b>No credit check</b> just to enquire.</span></li><li><span><b>Your details stay private.</b> They go only to lenders you approve.</span></li></ul></div>
+  <form id="ef" novalidate>
+    <input id="en_n" class="full" required placeholder="Full name" autocomplete="name" aria-label="Full name">
+    <input id="en_p" type="text" inputmode="tel" required placeholder="Mobile number" autocomplete="tel" aria-label="Mobile number">
+    <input id="en_e" type="text" inputmode="email" placeholder="Email (optional)" autocomplete="email" aria-label="Email">
+    <select id="en_t" aria-label="Loan type"></select>
+    <input id="en_a" inputmode="numeric" placeholder="Loan amount (₹)" aria-label="Loan amount">
+    <input id="en_c" class="full" placeholder="City" autocomplete="address-level2" aria-label="City">
+    <textarea id="en_m" class="full" rows="3" placeholder="Anything we should know? (optional)" aria-label="Message"></textarea>
+    <label class="full chk"><input type="checkbox" id="en_k"> I agree to be contacted about my loan enquiry.</label>
+    <button class="btn full" type="submit">Request a call back</button>
+    <p class="note full" id="en_s" role="status" aria-live="polite">Submitting opens WhatsApp with your details ready to send. Nothing is stored on this page.</p>
+  </form>
+</div></div></section>
+<footer><div class="wrap fg">
+  <div><a class="logo" href="#home"><i></i>Kaveri Finserv</a><p>Direct Selling Agent. We do not lend money ourselves. All loans are subject to lender approval, and rates shown are indicative.</p></div>
+  <div id="fl"><h4>Loans</h4></div>
+  <div><h4>Company</h4><a href="#about">About</a><a href="#emi-calculator">EMI calculator</a><a href="#documents">Documents</a><a href="#faq">FAQ</a><a href="#contact">Contact</a></div>
+  <div><h4>Contact</h4><span>Your office address, Delhi</span><a href="tel:+919999999999">+91 99999 99999</a><span>Mon–Sat, 9 AM – 7 PM</span></div>
+</div></footer>
+
+<a class="wa" id="wa" href="https://wa.me/919999999999" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp"><span>Chat with us on WhatsApp</span><svg viewBox="0 0 32 32" width="30" height="30" fill="#fff" aria-hidden="true"><path d="M16.004 3C9.38 3 4 8.38 4 15c0 2.35.68 4.62 1.97 6.58L4 29l7.62-1.93A11.94 11.94 0 0 0 16.004 27C22.62 27 28 21.62 28 15S22.62 3 16.004 3zm0 21.8c-1.9 0-3.76-.52-5.38-1.5l-.39-.23-4.52 1.14 1.2-4.4-.25-.4A9.8 9.8 0 0 1 6.2 15c0-5.42 4.4-9.8 9.8-9.8s9.8 4.38 9.8 9.8-4.4 9.8-9.8 9.8zm5.4-7.33c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.5.71.3 1.26.49 1.7.63.71.23 1.36.2 1.88.12.57-.08 1.75-.72 2-1.4.25-.7.25-1.3.17-1.4-.07-.13-.27-.2-.57-.35z"/></svg></a>
+<script>
+(function(){
+var WA='919999999999';
+var S=[
+{id:'home-loan',n:'Home loan',i:'🏠',g:'linear-gradient(135deg,#3b82f6,#8b5cf6)',r:8.4,m:'₹10 Cr',t:30,s:'Buy, build or extend your home with long tenures.',d:'Finance a flat, house, plot or construction with repayment up to 30 years. We compare lenders on rate, processing fee and prepayment rules before you apply.',
+ p:['Purchase, construction and plot loans','Balance transfer with top-up','Joint applications to raise eligibility','Tax benefits under Sections 80C and 24(b)'],
+ dc:['PAN and Aadhaar','3 months salary slips or 2 years ITR','6 months bank statements','Property papers and sale agreement'],
+ e:['Age 21–65 at maturity','Steady income for 2+ years','Credit score of 700+ for the best rates'],
+ f:[['How much can I borrow?','Lenders usually allow EMIs up to 40–50% of your monthly income. Joint applicants can raise the amount.'],['Can I prepay my home loan?','Floating-rate loans for individuals can be prepaid without penalty under RBI rules.']]},
+{id:'personal-loan',n:'Personal loan',i:'💸',g:'linear-gradient(135deg,#22d3ee,#3b82f6)',r:10.5,m:'₹40 L',t:5,s:'No collateral. Funds for weddings, medical needs or travel.',d:'An unsecured loan for any personal need. Approval depends on income and credit history, so we steer you to lenders that suit your profile.',
+ p:['No collateral or guarantor','Fast disbursal for salaried profiles','Fixed EMIs up to 5 years','Part-prepayment on most plans'],
+ dc:['PAN and Aadhaar','3 months salary slips','6 months bank statements','Current address proof'],
+ e:['Age 21–58 years','Minimum monthly income set by lender','Credit score of 720+ preferred'],
+ f:[['Why are personal loan rates higher?','There is no collateral, so lenders price in more risk.'],['Does it affect my credit score?','Each formal application adds a hard enquiry, so we shortlist lenders first instead of applying everywhere.']]},
+{id:'business-loan',n:'Business loan',i:'🏢',g:'linear-gradient(135deg,#6366f1,#22d3ee)',r:11,m:'₹2 Cr',t:7,s:'Working capital, machinery and expansion funding.',d:'For proprietors, partnerships and companies. We match your turnover and vintage to lenders who fund your sector.',
+ p:['Unsecured and secured options','Overdraft and term loan structures','GST-based and ITR-based assessment','Machinery and equipment finance'],
+ dc:['KYC of owners','2 years ITR and financials','12 months bank statements','GST returns and business proof'],
+ e:['Business running 2+ years','Positive annual profit','Regular GST filing'],
+ f:[['Can new businesses get a loan?','Some lenders fund 1-year-old businesses, usually with a guarantor or collateral.'],['Overdraft or term loan?','Overdraft suits uneven cash flow. Term loans suit one-time purchases.']]},
+{id:'loan-against-property',n:'Loan against property',i:'🏷️',g:'linear-gradient(135deg,#ffb53d,#3b82f6)',r:9,m:'₹5 Cr',t:15,s:'Unlock the value of residential or commercial property.',d:'Borrow against a property you own and keep using it. Rates are lower than unsecured loans, with a longer tenure.',
+ p:['Up to about 70% of property value','Residential and commercial property','Use funds for business or personal needs','Tenure up to 15 years'],
+ dc:['KYC and income proof','Title deed and chain documents','Property tax receipts','12 months bank statements'],
+ e:['Clear, marketable title','Property in an approved location','Existing loans declared upfront'],
+ f:[['Can I use the property while it is mortgaged?','Yes. You keep living in or renting out the property.'],['What if I can’t repay?','The lender can recover dues by auctioning the property, so borrow only what you can service.']]},
+{id:'mortgage-loan',n:'Mortgage loan',i:'🔑',g:'linear-gradient(135deg,#3b82f6,#22d3ee)',r:8.75,m:'₹10 Cr',t:25,s:'Structured property finance with flexible terms.',d:'Mortgage finance for purchase, construction or refinancing, with terms built around your cash flow.',
+ p:['Flexible repayment structures','Purchase or construction','Competitive rates for strong profiles','Guided legal and technical checks'],
+ dc:['KYC','Income proof','Bank statements','Property documents'],
+ e:['Stable income','Clear property title','Good repayment history'],
+ f:[['Mortgage vs home loan?','A home loan buys or builds a home. A mortgage loan can also be taken against property you already own.'],['How long is the process?','Legal and valuation checks usually take one to three weeks.']]},
+{id:'new-car-loan',n:'New car loan',i:'🚗',g:'linear-gradient(135deg,#8b5cf6,#3b82f6)',r:8.7,m:'₹1 Cr',t:7,s:'Up to 100% on-road funding for a new car.',d:'Finance a new car with quick approval. We compare dealer-tied and independent offers so you do not overpay.',
+ p:['Up to 100% on-road funding on select plans','Tenure up to 7 years','Dealer coordination handled by us','Check foreclosure charges before signing'],
+ dc:['PAN and Aadhaar','Income proof','6 months bank statements','Proforma invoice from dealer'],
+ e:['Age 21–65 years','Stable income','Credit score of 700+'],
+ f:[['Is 100% funding wise?','It lowers your upfront cost but raises total interest. A down payment of 10–20% saves money.'],['Is dealer finance cheaper?','Not always. We show you both side by side.']]},
+{id:'used-car-loan',n:'Used car loan',i:'🚙',g:'linear-gradient(135deg,#22d3ee,#8b5cf6)',r:11,m:'₹50 L',t:5,s:'Finance a pre-owned car with minimal paperwork.',d:'Funding for pre-owned cars up to a set age, based on a valuation by the lender.',
+ p:['Up to about 90% of valuation','Quick valuation and approval','Refinance a car you already own','Tenure up to 5 years'],
+ dc:['PAN and Aadhaar','Income proof','Bank statements','RC and insurance of the car'],
+ e:['Car age within lender limit','Stable income','Clean RC with no pending challans'],
+ f:[['How is the loan amount decided?','The lender values the car and funds a percentage of that value.'],['Can I get a loan on a car I own?','Yes, many lenders offer refinance on cars you already own.']]},
+{id:'loan-refinance',n:'Loan refinance',i:'🔁',g:'linear-gradient(135deg,#ffb53d,#8b5cf6)',r:8.4,m:'₹10 Cr',t:30,s:'Move an expensive loan to a cheaper lender.',d:'If your current rate is high, a balance transfer can cut your EMI or shorten your loan. We calculate the real saving after fees first.',
+ p:['Lower EMI or shorter tenure','Top-up on the transferred loan','We show net saving after charges','Works for home, LAP and personal loans'],
+ dc:['KYC and income proof','Existing loan statement','Foreclosure letter','Original property papers if secured'],
+ e:['At least 12 EMIs paid on time','Rate gap of 0.5% or more','Good credit score'],
+ f:[['When is a transfer worth it?','When the saving in interest is clearly larger than the new lender’s fees, usually with a gap of 0.5% or more.'],['Will my tenure reset?','You choose: keep the EMI lower or keep the old end date and save interest.']]}
+];
+var FAQ=[['What is a Direct Selling Agent?','A DSA is an authorised partner of banks and NBFCs who sources and processes loan applications. The lender decides on approval and sets the final terms.'],['Do I pay you anything?','No. Lenders pay us after your loan is disbursed. Never pay anyone for a guaranteed approval.'],['How long does approval take?','Many salaried applications get an in-principle decision in one to two days. Disbursal follows in a few working days.'],['Can I get a loan with a low credit score?','Often yes, through NBFCs that look at your whole profile. Rates are usually higher, and we tell you before you apply.'],['Which documents do I need?','Usually PAN, Aadhaar, income proof and six months of bank statements. Secured loans need property papers.'],['Do you work outside Delhi?','Yes. Most of the process runs over call, WhatsApp and email.']];
+var $=function(s,r){return(r||document).querySelector(s)};
+var inr=function(n){return '₹'+Math.round(n).toLocaleString('en-IN')};
+var sh=function(n){return n>=1e7?(n/1e7).toFixed(2)+' Cr':n>=1e5?(n/1e5).toFixed(2).replace(/\.00$/,'')+' L':Math.round(n).toLocaleString('en-IN')};
+var emi=function(P,R,Y){var r=R/1200,n=Y*12;return P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1)};
+var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function calc(o){o=o||{};return '<div class="calc" data-emi="'+(o.cmp?1:0)+'"><h3>EMI calculator</h3>'+
+ [['amt','Loan amount',100000,50000000,50000,o.a||2500000],['rt','Interest rate (per year)',6.5,24,.1,o.r||9.5],['tn','Tenure',1,30,1,o.y||15]].map(function(x){
+ return '<div class="row"><label>'+x[1]+'<output></output></label><input type="range" data-k="'+x[0]+'" min="'+x[2]+'" max="'+x[3]+'" step="'+x[4]+'" value="'+x[5]+'" aria-label="'+x[1]+'"></div>'}).join('')+
+ '<div class="res"><svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="15.9" fill="none" stroke="var(--violet)" stroke-width="4"/><circle class="arc" cx="18" cy="18" r="15.9" fill="none" stroke="var(--amber)" stroke-width="4" stroke-linecap="round" stroke-dasharray="30 100"/></svg><div><small>Monthly EMI</small><div class="emi"></div></div></div>'+
+ '<div class="split"><div><span>Principal</span><b class="pp"></b></div><div><span>Total interest</span><b class="ii"></b></div><div><span>Total payment</span><b class="tt"></b></div></div>'+
+ (o.cmp?'<table class="cmp"><thead><tr><th>Tenure</th><th>EMI</th><th>Total interest</th></tr></thead><tbody></tbody></table>':'')+
+ '<p class="note" style="margin-top:12px">Indicative figures. Your lender’s final EMI may differ slightly.</p></div>'}
+function bindCalc(root){
+  var inp={};root.querySelectorAll('[data-k]').forEach(function(e){inp[e.dataset.k]=e});
+  function up(){var P=+inp.amt.value,R=+inp.rt.value,Y=+inp.tn.value,m=emi(P,R,Y),T=m*Y*12,I=T-P;
+    var o=root.querySelectorAll('output');o[0].textContent='₹'+sh(P);o[1].textContent=R.toFixed(1)+'%';o[2].textContent=Y+' yrs';
+    $('.emi',root).textContent=inr(m);$('.pp',root).textContent=inr(P);$('.ii',root).textContent=inr(I);$('.tt',root).textContent=inr(T);
+    $('.arc',root).setAttribute('stroke-dasharray',(I/T*100).toFixed(1)+' 100');
+    var tb=$('tbody',root);if(tb)tb.innerHTML=[5,10,15,20,25,30].map(function(y){var e=emi(P,R,y);return '<tr'+(y===Y?' class="hl"':'')+'><td>'+y+' yrs</td><td>'+inr(e)+'</td><td>'+inr(e*y*12-P)+'</td></tr>'}).join('')}
+  Object.keys(inp).forEach(function(k){inp[k].addEventListener('input',up)});up()}
+
+var cta=function(t){return '<section><div class="wrap"><div class="band"><h2>'+(t||'Ready to compare offers?')+'</h2><div class="cta"><a class="btn" href="#contact">Check my eligibility</a><a class="btn ghost" href="https://wa.me/'+WA+'" target="_blank" rel="noopener">WhatsApp us</a></div></div></div></section>'};
+var faqH=function(a){return a.map(function(x){return '<details><summary>'+x[0]+'</summary><p>'+x[1]+'</p></details>'}).join('')};
+var card=function(s,big){return '<a class="card rv'+(big?' big':'')+'" href="#'+s.id+'" style="--g:'+s.g+'"><span class="rate">from '+s.r+'%</span><div class="ic">'+s.i+'</div><h3>'+s.n+'</h3><p>'+s.s+'</p><em>Up to '+s.m+'</em></a>'};
+var head=function(t,p){return '<div class="sh rv"><h2>'+t+'</h2>'+(p?'<p>'+p+'</p>':'')+'</div>'};
+var ul=function(a){return '<ul class="list">'+a.map(function(x){return '<li><span>'+x+'</span></li>'}).join('')+'</ul>'};
+var stat=function(n,s,l,alt){return '<div class="stat rv'+(alt?' alt':'')+'"><strong data-n="'+n+'" data-s="'+s+'">'+n+s+'</strong><p>'+l+'</p></div>'};
+
+var WHY=[['⚡','Quick loan processing','In-principle decision in 1–2 days for most salaried files. Disbursal follows in a few working days.'],['🧭','Expert guidance','We read your profile and match you with the lender most likely to approve it.'],['🏦','Many lenders, one file','We compare banks and NBFCs side by side, so you don’t apply blindly everywhere.'],['✅','Documentation done right','Every paper is checked before submission, which avoids the rejections caused by small errors.'],['🔍','Fully transparent','Fees, charges and clauses are explained before you sign. No surprises later.'],['🤝','One person on your file','A relationship manager stays with you from application to disbursal.']];
+var BANKS=[['HDFC Bank','HD'],['SBI','SB'],['ICICI Bank','IC'],['Axis Bank','AX'],['Kotak Mahindra','KM'],['Punjab National Bank','PN'],['Bank of Baroda','BB'],['Bajaj Finserv','BF'],['LIC Housing','LH'],['Tata Capital','TC']];
+var REV=[['Rajesh Sharma','R','#8b5cf6','2 weeks ago','Home loan','Had documentation issues and two lenders had already said no. They found the problem, fixed the file and the loan got sanctioned within a week. Calls were always answered.'],['Priya Malhotra','P','#0ea5e9','1 month ago','Personal loan','Needed funds quickly for a family wedding. They compared three lenders and the money reached my account in two days. WhatsApp support was very responsive.'],['Vinod Agarwal','V','#0d9488','1 month ago','Business loan','As a small manufacturer I was confused about which bank would fund me. They knew exactly which lender to approach and explained every charge upfront.'],['Sunita Verma','S','#d97706','2 months ago','Loan against property','Compared several banks for me and got a better rate than what my own bank offered. The process was smooth and clear from day one.'],['Deepak Chaudhary','D','#4f46e5','3 months ago','Home loan','First-time buyer and I knew nothing. They explained eligibility and EMI patiently, never rushed me, and chose a lender that suited my salary.'],['Anita Kapoor','A','#7c3aed','3 months ago','Loan refinance','Moved my home loan to a lower rate. They showed the real saving after fees before I decided. That honesty is why I recommend them.']];
+var GSTAR='<span class="stars" aria-label="5 out of 5 stars">★★★★★</span>';
+var P={
+home:function(){return '<div class="wrap hero"><div><span class="pill rv"><b></b>Verified Direct Selling Agent for 30+ banks and NBFCs</span><h1 class="rv">One application. <span class="grad">Many lenders.</span> Your best rate.</h1><p class="lead rv">We compare offers, fix the paperwork and follow your file to disbursal. You pay us nothing. Lenders pay us when your loan is disbursed.</p><div class="cta rv"><a class="btn" href="#contact">Check my eligibility</a><a class="btn ghost" href="#home-loan">See loan types</a></div><div class="facts rv"><div><strong data-n="2500" data-s="+">2500+</strong>loans arranged</div><div><strong data-n="40" data-s="+">40+</strong>lending partners</div><div><strong data-n="10" data-s="+">10+</strong>years in business</div></div></div><div class="rv">'+calc()+'</div></div>'+
+ '<div class="marq"><div class="track">'+['Public sector banks','Private banks','NBFCs','Housing finance companies','Small finance banks','Fintech lenders','Public sector banks','Private banks','NBFCs','Housing finance companies','Small finance banks','Fintech lenders'].map(function(x){return '<span>'+x+'</span>'}).join('')+'</div></div>'+
+ '<section><div class="wrap">'+head('Eight loans. One expert on your file.','Open any loan to see what it covers, the documents you need and an EMI preview.')+'<div class="grid">'+S.map(function(s,i){return card(s,i<2)}).join('')+'</div></div></section>'+
+ '<section><div class="wrap">'+head('From first call to money in your account')+'<div class="steps">'+[['Tell us what you need','Share amount, income and city. It takes two minutes.'],['Compare real offers','We shortlist lenders with rate, fees and approval odds side by side.'],['Upload documents once','We check every paper before it reaches the lender.'],['Get sanctioned and disbursed','We follow up daily until funds reach your account.']].map(function(x){return '<div class="step rv"><h3>'+x[0]+'</h3><p>'+x[1]+'</p></div>'}).join('')+'</div></div></section>'+
+ '<section><div class="wrap two">'+stat(98,'%','of files we submit reach sanction, because we match the profile to the right lender first.')+'<div class="stat alt rv"><h2>What you get as our client</h2>'+ul(['<b>Zero fee for you.</b> Lender commission never changes your rate.','<b>Honest rejections.</b> We tell you how to fix a weak profile first.','<b>One named manager</b> with a direct number.','<b>Your data stays yours.</b> Documents go only to lenders you approve.'])+'</div></div></section>'+
+ '<section><div class="wrap">'+head('Why people choose us','We do more than process forms. We stay on your file until the money reaches your account.')+'<div class="grid">'+WHY.map(function(w,i){return '<div class="card rv" style="--g:'+S[i].g+'"><div class="ic">'+w[0]+'</div><h3>'+w[1]+'</h3><p>'+w[2]+'</p></div>'}).join('')+'</div></div></section>'+
+ '<section><div class="wrap">'+head('Partnered with India’s top banks','We compare offers from banks and NBFCs and put the best match in front of you.')+'<div class="banks">'+BANKS.map(function(b){return '<div class="bank rv"><div class="bm">'+b[1]+'</div><div><b>'+b[0]+'</b><small>✓ Verified partner</small></div></div>'}).join('')+'</div><div class="chips rv"><span>Housing finance companies</span><span>Co-operative banks</span><span>Small finance banks</span><span>+ many more NBFCs</span></div></div></section>'+
+ '<section><div class="wrap">'+head('What our clients say','Real feedback from people we helped with their loans.')+'<div class="rsum rv"><strong>4.9</strong><div>'+GSTAR+'<br><small>Based on 200+ Google reviews</small></div><span class="gl g">G</span><a class="btn ghost sm" href="#contact">Share your experience</a></div><div class="rev rv">'+REV.map(function(r){return '<article class="rc"><div class="rh"><div class="av" style="background:'+r[2]+'">'+r[1]+'</div><div><b>'+r[0]+'</b><small>'+r[3]+'</small></div><span class="gl">G</span></div>'+GSTAR+'<p>'+r[5]+'</p><span class="tag">'+r[4]+'</span></article>'}).join('')+'</div></div></section>'+
+ '<section><div class="wrap">'+head('Questions people ask first')+faqH(FAQ.slice(0,4))+'</div></section>'+cta()},
+svc:function(s){var rel=S.filter(function(x){return x.id!==s.id});var i=S.indexOf(s);rel=[S[(i+1)%8],S[(i+2)%8],S[(i+3)%8]];
+ return '<div class="wrap crumb rv"><a href="#home">Home</a> / <a href="#home-loan">Loans</a> / '+s.n+'</div>'+
+ '<div class="wrap ph"><div class="ic lg rv" style="--g:'+s.g+'">'+s.i+'</div><h1 class="rv">'+s.n+'</h1><p class="lead rv">'+s.d+'</p><div class="facts rv"><div><strong>'+s.r+'%</strong>starting rate p.a.</div><div><strong>'+s.m+'</strong>maximum amount</div><div><strong>'+s.t+' yrs</strong>maximum tenure</div></div><div class="cta rv"><a class="btn" href="#contact" data-type="'+s.n+'">Apply for '+s.n.toLowerCase()+'</a><a class="btn ghost" href="https://wa.me/'+WA+'?text='+encodeURIComponent('Hi, I need a '+s.n+'.')+'" target="_blank" rel="noopener">Ask on WhatsApp</a></div></div>'+
+ '<section><div class="wrap two"><div class="rv"><h2 class="h3">What you can do with it</h2>'+ul(s.p)+'<h2 class="h3 mt">Who can apply</h2>'+ul(s.e)+'<h2 class="h3 mt">Documents to keep ready</h2>'+ul(s.dc)+'</div><div class="rv">'+calc({r:s.r+.5,y:Math.min(s.t,15)})+'</div></div></section>'+
+ '<section><div class="wrap">'+head('How we get your '+s.n.toLowerCase()+' approved')+'<div class="steps">'+[['Profile check','We review income, credit score and existing loans.'],['Lender match','We pick lenders that fit your profile, not just the cheapest headline rate.'],['File preparation','We verify and submit your documents once, correctly.'],['Sanction and disbursal','We chase the lender until funds are released.']].map(function(x){return '<div class="step rv"><h3>'+x[0]+'</h3><p>'+x[1]+'</p></div>'}).join('')+'</div></div></section>'+
+ '<section><div class="wrap">'+head('About '+s.n.toLowerCase())+faqH(s.f)+'</div></section>'+
+ '<section><div class="wrap">'+head('Other loans you may need')+'<div class="grid">'+rel.map(function(x){return card(x)}).join('')+'</div></div></section>'+cta('Ready for your '+s.n.toLowerCase()+'?')},
+about:function(){return '<div class="wrap ph"><h1 class="rv">A loan partner that works for you, not the lender</h1><p class="lead rv">Kaveri Finserv is a Direct Selling Agent. We sit between you and 30+ banks and NBFCs, compare their offers and handle the paperwork. Replace this text with your own story.</p></div><section><div class="wrap two">'+stat(2500,'+','loans arranged')+stat(40,'+','bank and NBFC partners',1)+stat(10,'+','years of experience',1)+stat(98,'%','files reaching sanction')+'</div></section>'+cta()},
+'emi-calculator':function(){return '<div class="wrap ph"><h1 class="rv">EMI calculator</h1><p class="lead rv">Move the sliders to see your monthly instalment, total interest and how tenure changes both.</p></div><section><div class="wrap rv" style="max-width:780px">'+calc({cmp:1})+'</div></section>'+cta('Happy with the EMI? Let’s find the lender.')},
+documents:function(){return '<div class="wrap ph"><h1 class="rv">Documents and eligibility</h1><p class="lead rv">Exact requirements vary by lender. Here is what most of them ask for, loan by loan.</p></div><section><div class="wrap"><div class="grid">'+S.map(function(s){return '<div class="card rv" style="--g:'+s.g+'"><div class="ic">'+s.i+'</div><h3><a href="#'+s.id+'" style="text-decoration:none">'+s.n+'</a></h3><div style="margin-top:12px">'+ul(s.dc)+'</div></div>'}).join('')+'</div></div></section>'+cta()},
+faq:function(){return '<div class="wrap ph"><h1 class="rv">Frequently asked questions</h1></div><section><div class="wrap rv" style="max-width:820px">'+faqH(FAQ)+'</div></section>'+cta('Still have a question?')},
+contact:function(t){
+var open=(function(){var d=new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Kolkata'})),w=d.getDay(),h=d.getHours();return w>=1&&w<=6&&h>=9&&h<19})();
+var fld=function(id,l,ctl,h,c){return '<div class="fld'+(c?' '+c:'')+'"><label for="'+id+'">'+l+'</label>'+ctl+(h?'<small id="'+id+'_h" data-d="'+h+'">'+h+'</small>':'')+'<span class="errm" id="'+id+'_e" aria-live="polite"></span></div>'};
+var inp=function(id,ph,ex){return '<input id="'+id+'" placeholder="'+ph+'" '+(ex||'')+'>'};
+var sel=function(id,o,v){return '<select id="'+id+'">'+o.map(function(x){return '<option'+(x===v?' selected':'')+'>'+x+'</option>'}).join('')+'</select>'};
+var rad=function(n,l,o,d){return '<div class="fld full"><span class="l" id="'+n+'_l">'+l+'</span><div class="opts" role="radiogroup" aria-labelledby="'+n+'_l">'+o.map(function(x){return '<label><input type="radio" name="'+n+'" value="'+x+'"'+(x===d?' checked':'')+'><span>'+x+'</span></label>'}).join('')+'</div></div>'};
+return '<div class="wrap ph"><h1 class="rv">Tell us what you need</h1><p class="lead rv">The more you share, the better we can match you to a lender. Only fields marked * are required.</p></div>'+
+'<section><div class="wrap two cw"><div class="calc cform rv" id="cbox"><form id="cf" novalidate>'+
+'<fieldset><legend>About you</legend><div class="fgrid2">'+fld('c_n','Full name *',inp('c_n','e.g. Rahul Sharma','autocomplete="name"'),'','full')+fld('c_p','Mobile number *',inp('c_p','10-digit number','type="text" inputmode="tel" autocomplete="tel"'),'We call or WhatsApp on this number.')+fld('c_e','Email',inp('c_e','Optional','type="text" inputmode="email" autocomplete="email"'))+fld('c_c','City *',inp('c_c','e.g. Delhi','autocomplete="address-level2"'))+fld('c_z','Pincode',inp('c_z','Optional','inputmode="numeric" maxlength="6"'))+'</div></fieldset>'+
+'<fieldset><legend>About the loan</legend><div class="fgrid2">'+fld('c_t','Loan type *',sel('c_t',S.map(function(s){return s.n}),t))+fld('c_a','Loan amount needed (₹) *',inp('c_a','e.g. 2500000','inputmode="numeric"'),'Type the amount in numbers.')+fld('c_y','Preferred tenure',sel('c_y',['Not sure yet','Up to 3 years','3–5 years','5–10 years','10–20 years','20–30 years'],'Not sure yet'))+rad('prop','Do you own a property?',['Yes','No'],'No')+'</div></fieldset>'+
+'<fieldset><legend>Your income</legend><div class="fgrid2">'+rad('emp','Employment type',['Salaried','Self-employed','Business owner'],'Salaried')+fld('c_i','Monthly income (₹) *',inp('c_i','e.g. 80000','inputmode="numeric"'),'Approximate is fine.')+fld('c_x','Existing EMIs per month (₹)',inp('c_x','0 if none','inputmode="numeric"'),'Total of all your running loans.')+fld('c_s','Credit score (CIBIL)',sel('c_s',['I don’t know','Below 650','650–699','700–749','750 and above'],'I don’t know'),'','full')+'</div></fieldset>'+
+'<fieldset><legend>How should we reach you?</legend><div class="fgrid2">'+rad('via','Preferred way',['WhatsApp','Call','Email'],'WhatsApp')+fld('c_b','Best time to reach you',sel('c_b',['Any time','Morning (9–12)','Afternoon (12–4)','Evening (4–7)'],'Any time'),'','full')+fld('c_m','Anything else we should know?','<textarea id="c_m" rows="3" placeholder="Optional"></textarea>','','full')+'</div>'+
+'<label class="chk2" style="margin-top:14px"><input type="checkbox" id="c_k"><span>I agree to be contacted about my loan enquiry. <b>*</b></span></label><span class="errm" id="c_k_e" aria-live="polite"></span></fieldset>'+
+'<div class="acts"><button class="btn" type="submit" data-ch="wa">Send on WhatsApp</button><button class="btn ghost" type="submit" data-ch="mail">Send by email</button></div><p class="note" style="margin-top:12px">Nothing is stored on this page. Your details go only where you send them.</p></form></div>'+
+'<aside class="calc info rv"><h3>Reach us directly</h3><p><span class="badge'+(open?' open':'')+'"><i></i>'+(open?'Open now':'Closed now. We reply next working day')+'</span></p><p><b>Phone</b><br><a href="tel:+919999999999">+91 99999 99999</a></p><p><b>WhatsApp</b><br><a href="https://wa.me/'+WA+'" target="_blank" rel="noopener">Chat with us</a></p><p><b>Email</b><br><a href="mailto:care@example.com">care@example.com</a></p><p><b>Office</b><br>Your office address, Delhi</p><p><b>Hours</b><br>Mon–Sat, 9 AM – 7 PM</p>'+
+'<h3 style="margin-top:22px">What happens next</h3><ol class="nx"><li><span>We call or message you within an hour on working days.</span></li><li><span>We compare lenders and share the best two or three options.</span></li><li><span>You choose one, and we handle the paperwork until disbursal.</span></li></ol><p class="note" style="margin-top:18px"><b>Never pay for approval.</b> We charge nothing to process your loan.</p></aside></div></section>'}
+};
+
+function bindContact(f){
+  var g=function(i){return document.getElementById(i)},esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+  ['c_a','c_i','c_x'].forEach(function(id){var el=g(id),h=g(id+'_h');el.addEventListener('input',function(){var v=+el.value.replace(/\D/g,'');if(h)h.textContent=v?'₹'+sh(v):h.dataset.d||''})});
+  f.addEventListener('submit',function(e){
+    e.preventDefault();var ch=(e.submitter&&e.submitter.dataset.ch)||'wa',bad=null;
+    f.querySelectorAll('[aria-invalid]').forEach(function(x){x.removeAttribute('aria-invalid')});f.querySelectorAll('.errm').forEach(function(x){x.textContent=''});
+    function err(id,m){g(id+'_e').textContent=m;g(id).setAttribute('aria-invalid','true');if(!bad)bad=g(id)}
+    var num=function(id){return +g(id).value.replace(/\D/g,'')},ph=g('c_p').value.replace(/\D/g,'').replace(/^(91|0)(?=\d{10}$)/,'');
+    if(!g('c_n').value.trim())err('c_n','Please enter your name.');
+    if(!/^[6-9]\d{9}$/.test(ph))err('c_p','Enter a valid 10-digit mobile number.');
+    if(g('c_e').value&&!/^\S+@\S+\.\S+$/.test(g('c_e').value.trim()))err('c_e','This email doesn’t look right.');
+    if(!g('c_c').value.trim())err('c_c','Please enter your city.');
+    if(g('c_z').value&&!/^\d{6}$/.test(g('c_z').value.trim()))err('c_z','A pincode has 6 digits.');
+    if(!num('c_a'))err('c_a','Enter the loan amount you need.');
+    if(!num('c_i'))err('c_i','Enter your monthly income. An approximate figure is fine.');
+    if(!g('c_k').checked){g('c_k_e').textContent='Please tick this so we can contact you.';if(!bad)bad=g('c_k')}
+    if(bad){bad.focus();return}
+    var rv=function(n){return f.querySelector('input[name='+n+']:checked').value},nm=g('c_n').value.trim(),inrs=function(id){return '₹'+num(id).toLocaleString('en-IN')};
+    var L=['New loan enquiry','Name: '+nm,'Mobile: '+ph,g('c_e').value.trim()&&'Email: '+g('c_e').value.trim(),'City: '+g('c_c').value.trim()+(g('c_z').value.trim()?' - '+g('c_z').value.trim():''),'Loan: '+g('c_t').value+', '+inrs('c_a'),'Preferred tenure: '+g('c_y').value,'Owns property: '+rv('prop'),'Employment: '+rv('emp'),'Monthly income: '+inrs('c_i'),'Existing EMIs: '+inrs('c_x'),'Credit score: '+g('c_s').value,'Contact via: '+rv('via')+', '+g('c_b').value,g('c_m').value.trim()&&'Note: '+g('c_m').value.trim()].filter(Boolean);
+    var body=L.join('\n'),wa='https://wa.me/'+WA+'?text='+encodeURIComponent(body);
+    if(ch==='mail')location.href='mailto:care@example.com?subject='+encodeURIComponent('Loan enquiry - '+g('c_t').value)+'&body='+encodeURIComponent(body);else window.open(wa,'_blank','noopener');
+    var box=g('cbox');box.innerHTML='<div class="done"><div class="ic lg" style="margin:0 auto">✓</div><h3>Thank you, '+esc(nm.split(' ')[0])+'</h3><p class="lead" style="margin:0 auto">Your enquiry is ready in '+(ch==='mail'?'your email app':'WhatsApp')+'. Press send there and we will get back to you.</p>'+ul(L.slice(1).map(esc))+'<div class="acts"><a class="btn" href="'+wa+'" target="_blank" rel="noopener">Open WhatsApp again</a><button class="btn ghost" type="button" id="again">Edit my details</button></div></div>';
+    g('again').onclick=function(){route('contact')};box.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+  });
+}
+var app=$('#app'),cur='home',pendingType='';
+function route(tok){
+  tok=(tok||'home').replace('#','')||'home';var s=S.filter(function(x){return x.id===tok})[0];
+  var key=s?'svc':(P[tok]?tok:'home');
+  app.innerHTML=key==='svc'?P.svc(s):key==='contact'?P.contact(pendingType):P[key]();
+  document.title=(s?s.n:key==='home'?'Loans matched to the right lender':key.replace('-',' '))+' – Kaveri Finserv';
+  document.querySelectorAll('#links a[data-p]').forEach(function(a){a.classList.toggle('on',a.dataset.p===key||(key==='svc'&&a.dataset.p==='svc'))});
+  $('#links').classList.remove('open');window.scrollTo(0,0);
+  $('#enq').hidden=(key==='contact');if(s)$('#en_t').value=s.n;
+  $('#wa').href='https://wa.me/'+WA+'?text='+encodeURIComponent(s?'Hi, I need a '+s.n+'.':'Hi, I need help with a loan.');
+  app.querySelectorAll('[data-emi]').forEach(bindCalc);
+  var f=$('#cf');if(f)bindContact(f);
+  if(!reduce)app.querySelectorAll('.rv').forEach(function(e,i){if(e.animate)e.animate([{opacity:0,transform:'translateY(30px)'},{opacity:1,transform:'none'}],{duration:800,delay:Math.min(i,12)*70,easing:'cubic-bezier(.16,1,.3,1)',fill:'backwards'})});
+  app.querySelectorAll('[data-n]').forEach(function(el){if(reduce)return;var to=+el.dataset.n,sf=el.dataset.s,t0=null;function fr(t){if(!t0)t0=t;var p=Math.min((t-t0)/1500,1);el.textContent=Math.round(to*(1-Math.pow(1-p,4))).toLocaleString('en-IN')+sf;if(p<1)requestAnimationFrame(fr)}requestAnimationFrame(fr)});
+}
+$('#menu').innerHTML=S.map(function(s){return '<a href="#'+s.id+'"><span>'+s.i+'</span>'+s.n+'</a>'}).join('');
+$('#fl').innerHTML+=S.slice(0,5).map(function(s){return '<a href="#'+s.id+'">'+s.n+'</a>'}).join('');
+document.addEventListener('click',function(e){var a=e.target.closest('a[href^="#"]');if(!a)return;var t=a.getAttribute('href').slice(1);if(!t)return;e.preventDefault();if(a.dataset.type)pendingType=a.dataset.type;else if(t!=='contact')pendingType='';try{history.replaceState(null,'','#'+t)}catch(x){}route(t)});
+window.addEventListener('hashchange',function(){route(location.hash)});
+$('#burger').onclick=function(){$('#links').classList.toggle('open')};
+$('#theme').onclick=function(){var r=document.documentElement,d=r.dataset.theme?r.dataset.theme==='dark':!matchMedia('(prefers-color-scheme: light)').matches;r.dataset.theme=d?'light':'dark'};
+$('#en_t').innerHTML=S.map(function(s){return '<option>'+s.n+'</option>'}).join('');
+$('#ef').addEventListener('submit',function(e){
+  e.preventDefault();var st=$('#en_s'),ph=$('#en_p').value.replace(/\D/g,'').replace(/^(91|0)(?=\d{10}$)/,'');
+  function bad(m){st.textContent=m;st.className='note full err'}
+  if(!$('#en_n').value.trim())return bad('Please enter your name.');
+  if(!/^[6-9]\d{9}$/.test(ph))return bad('Enter a valid 10-digit mobile number.');
+  if(!$('#en_k').checked)return bad('Please tick the box so we can contact you.');
+  var t='Hi, I’m '+$('#en_n').value.trim()+'. I need a '+$('#en_t').value+($('#en_a').value?' of ₹'+$('#en_a').value:'')+($('#en_c').value?' in '+$('#en_c').value:'')+'. Mobile: '+ph+($('#en_e').value?', email: '+$('#en_e').value:'')+'.'+($('#en_m').value?' Note: '+$('#en_m').value:'');
+  window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(t),'_blank','noopener');
+  st.textContent='Thanks '+$('#en_n').value.trim().split(' ')[0]+'. Your enquiry is ready in WhatsApp. Press send there and we will call you back.';st.className='note full ok';
+  $('#ef').reset();
+});
+route(location.hash);
+})();
+</script>
+</body>
+</html>
